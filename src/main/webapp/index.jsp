@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<form action="user/save" method="post">
+		username:<input type="text" name="username">
+		password:<input type="text" name="password">
+		<input type="submit" value="submit">
+	</form>
 </body>
 </html>

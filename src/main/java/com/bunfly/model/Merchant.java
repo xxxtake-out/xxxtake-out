@@ -1,4 +1,4 @@
-package com.bunfly.pojo;
+package com.bunfly.model;
 
 import java.util.List;
 
