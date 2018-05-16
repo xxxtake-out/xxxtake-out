@@ -8,6 +8,7 @@ public class Menu {
 	private int kid;
 	private int price;
 	private int hid;
+	private int pageview;
 	private Merchant mname;
 	public int getPid() {
 		return pid;
@@ -51,7 +52,7 @@ public class Menu {
 	public void setMname(Merchant mname) {
 		this.mname = mname;
 	}
-	public Menu(int pid, String pname, int mid, int kid, int price, int hid, Merchant mname) {
+	public Menu(int pid, String pname, int mid, int kid, int price, int hid,int pageview, Merchant mname) {
 		super();
 		this.pid = pid;
 		this.pname = pname;
@@ -59,6 +60,7 @@ public class Menu {
 		this.kid = kid;
 		this.price = price;
 		this.hid = hid;
+		this.pageview = pageview;
 		this.mname = mname;
 	}
 	public Menu() {
@@ -68,6 +70,12 @@ public class Menu {
 	public String toString() {
 		return "Menu [pid=" + pid + ", pname=" + pname + ", mid=" + mid + ", kid=" + kid + ", price=" + price + ", hid="
 				+ hid + ", mname=" + mname + "]";
+	}
+	public int getPageview() {
+		return pageview;
+	}
+	public void setPageview(int pageview) {
+		this.pageview = pageview;
 	}
 	
 }

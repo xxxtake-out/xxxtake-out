@@ -17,14 +17,16 @@
 
 	<bean id="c3p0" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
-		<property name="jdbcUrl" value="jdbc:mysql:///dbmsql"></property>
+		<property name="jdbcUrl" value="jdbc:mysql:///dbmysql"></property>
 		<property name="user" value="root"></property>
-		<property name="password" value=""></property>
+		<property name="password" value="123"></property>
 	</bean>
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="c3p0"></property>
 		<property name="typeAliasesPackage" value="com.bunfly.model"></property>
+		
 	</bean>
+	<!-- 配置mapper映射文件 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
   		<property name="basePackage" value="com.bunfly.dao" />
 	</bean>
@@ -44,7 +46,13 @@
 			
 		</tx:attributes>
 	</tx:advice>
-		
+		<!-- 配置上传文件处理 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设置编码 -->
+		<property name="defaultEncoding" value="utf-8"></property>
+		<!-- 设置文件大小 -->
+		<property name="maxUploadSize" value="20480000"></property>
+	</bean>
 </beans>
 		
 		

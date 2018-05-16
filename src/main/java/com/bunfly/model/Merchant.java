@@ -8,6 +8,7 @@ public class Merchant {
 	private String username;
 	private String password;
 	private int cid;
+	private int hid;
 	private List<Menu> menu;
 	public int getMid() {
 		return mid;
@@ -39,12 +40,13 @@ public class Merchant {
 	public void setMenu(List<Menu> menu) {
 		this.menu = menu;
 	}
-	public Merchant(int mid, String username, String password, int cid, List<Menu> menu) {
+	public Merchant(int mid, String username, String password, int cid, int hid, List<Menu> menu) {
 		super();
 		this.mid = mid;
 		this.username = username;
 		this.password = password;
 		this.cid = cid;
+		this.hid = hid;
 		this.menu = menu;
 	}
 	public Merchant() {
@@ -54,6 +56,12 @@ public class Merchant {
 	public String toString() {
 		return "Merchant [mid=" + mid + ", username=" + username + ", password=" + password + ", cid=" + cid + ", menu="
 				+ menu + "]";
+	}
+	public int getHid() {
+		return hid;
+	}
+	public void setHid(int hid) {
+		this.hid = hid;
 	}
 	
 }

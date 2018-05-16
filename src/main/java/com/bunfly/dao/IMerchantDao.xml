@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bunfly.dao.IMerchantDao">
+	<!-- 将要查询的字段设置好 方便以后直接调用 -->
+	<sql id="sql">MID, USERNAME, PASSWORD, CID, HID</sql>
+	<sql id="ordersql">UID,USERNAME,MID,PID,PNAME,COMMENT,TIME,PHONENUMBER,ADDR,PRICE</sql>
+	<sql id="orderinfo">(UID,USERNAME,MID,PID,PNAME,COMMENT,TIME,PHONENUMBER,ADDR,PRICE,OID,AFFIRM)</sql>
+	<!-- 根据用户名查询出该商家的全部信息 -->
+	<select id="selectByName" parameterType="Merchant" resultType="Merchant">
+		SELECT <include refid="sql"/>
+			FROM MERCHANT
+		WHERE USERNAME=#{username}
+  	</select>
+  	<!-- 注册 -->
+  	<insert id="register" parameterType="merchant">
+  		INSERT INTO MERCHANT
+  			(USERNAME,PASSWORD,CID,HID) VALUES (#{username},#{password},#{cid},#{hid})
+  	</insert>
+  	<!-- 找回密码 -->
+  	<select id="findp" parameterType="merchant" resultType="String">
+  		SELECT PASSWORD FROM MERCHANT WHERE USERNAME = #{username} AND CID = #{cid}
+  	</select>
+  	<!-- 分页查询 -->
+  	<select id="selectMenu" parameterType="menulimit" resultType="menu">
+  		SELECT PID,PNAME,MID,KID,PRICE,HID FROM MENU WHERE MID=#{id} LIMIT #{pages},#{pagesize}
+  	</select>
+  	<!-- 根据id查询商家全部信息 -->
+  	<select id="selectById" parameterType="int" resultType="Merchant">
+  		SELECT <include refid="sql"/>
+  			FROM MERCHANT WHERE MID=#{id}
+  	</select>
+  	<!-- 添加商品 -->
+  	<insert id="uploadMenu" parameterType="menu">
+  		INSERT INTO MENU (PID,PNAME,MID,KID,PRICE,HID) VALUES (#{pid},#{pname},#{mid},#{kid},#{price},#{hid})
+  	</insert>
+  	<!-- 更新、修改商品信息 -->
+  	<update id="updateMenu" parameterType="menu">
+  		UPDATE MENU 
+  		<trim prefix="set" suffixOverrides=",">
+  			<if test="pname != null">
+  				PNAME=#{pname},
+  			</if>
+  			<if test="price != 0">
+  				PRICE=#{price},
+  			</if>
+  			<if test="kid != 0">
+  				KID=#{kid},
+  			</if>
+  		</trim>
+  		WHERE PID = #{pid}
+  	</update>
+  	<!-- 删除商品 -->
+  	<delete id="deleteMenu" parameterType="int">
+  		DELETE FROM MENU WHERE PID = #{menu}
+  	</delete>
+  	<!-- 查询该商家商品的总数 -->
+  	<select id="count" parameterType="int" resultType="int">
+  		SELECT COUNT(1) FROM MENU WHERE MID=#{id}
+  	</select>
+  	<!-- 查询商品历史浏览记录 -->
+  	<select id="pageview" parameterType="menu" resultType="int">
+  		SELECT COUNT(1) FROM HISTORY WHERE PID = #{pid}
+  	</select>
+  	<!-- 查询商家全部待处理订单 -->
+  	<select id="order" parameterType="int" resultType="order">
+  		SELECT <include refid="ordersql"/>
+  		FROM `ORDER` WHERE MID=#{id}
+  	</select>
+  	<!-- 查询单条待处理订单 -->
+  	<select id="selectPid" parameterType="int" resultType="orderInfo">
+  		SELECT <include refid="ordersql"/>
+  		FROM `ORDER` WHERE MID=#{arg0} AND PID=#{arg1} AND UID=#{arg2}
+  	</select>
+  	<!-- 删除单条待处理订单 -->
+  	<delete id="clean" parameterType="int">
+  		DELETE FROM `ORDER` WHERE MID=#{arg0} AND PID=#{arg1} AND UID=#{arg2}
+  	</delete>
+  	<!-- 添加到已处理订单 -->
+  	<insert id="addOrderInfo" parameterType="OrderInfo">
+  		INSERT INTO ORDERINFO  <include refid="orderinfo"/>
+  			VALUES (#{uid},#{username},#{mid},#{pid},#{pname},#{comment},NOW(),#{phonenumber}
+  			,#{addr},#{price},#{oid},#{affirm})
+  	</insert>
+  	<!-- 查询交易总额 -->
+  	<select id="allprice" parameterType="int" resultType="int">
+  		SELECT SUM(PRICE) FROM ORDERINFO WHERE MID=#{id} AND AFFIRM=1
+  	</select>
+  	<!-- 查询交易量 -->
+  	<select id="allcount" parameterType="int" resultType="int">
+  		SELECT count(1) FROM ORDERINFO WHERE MID=#{id} AND AFFIRM=1
+  	</select>
+</mapper>

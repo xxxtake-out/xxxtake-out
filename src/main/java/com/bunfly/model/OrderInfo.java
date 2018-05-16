@@ -3,18 +3,18 @@ package com.bunfly.model;
 public class OrderInfo {
 
 	
-	private int uid;//用户ID
-	private String username;//用户名
-	private int mid;//商家ID
-	private int pid;//菜品ID
-	private String pname;//菜名
-	private String comment;//备注
-	private String time;//时间戳
-	private int phonenumber;//用户联系方式
-	private String addr;//用户地址
-	private int price;//价格
-	private int oid;//订单ID
-	private int affirm;//选择
+	private int uid;//鐢ㄦ埛ID
+	private String username;//鐢ㄦ埛鍚�
+	private int mid;//鍟嗗ID
+	private int pid;//鑿滃搧ID
+	private String pname;//鑿滃悕
+	private String comment;//澶囨敞
+	private String time;//鏃堕棿鎴�
+	private int phonenumber;//鐢ㄦ埛鑱旂郴鏂瑰紡
+	private String addr;//鐢ㄦ埛鍦板潃
+	private int price;//浠锋牸
+	private String oid = null ;//璁㈠崟ID
+	private int affirm;//閫夋嫨
 	
 	
 	public int getUid() {
@@ -77,10 +77,10 @@ public class OrderInfo {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public int getOid() {
+	public String getOid() {
 		return oid;
 	}
-	public void setOid(int oid) {
+	public void setOid(String oid) {
 		this.oid = oid;
 	}
 	public int getAffirm() {
@@ -90,7 +90,7 @@ public class OrderInfo {
 		this.affirm = affirm;
 	}
 	public OrderInfo(int uid, String username, int mid, int pid, String pname, String comment, String time,
-			int phonenumber, String addr, int price, int oid, int affirm) {
+			int phonenumber, String addr, int price, String oid, int affirm) {
 		super();
 		this.uid = uid;
 		this.username = username;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>day14_springmvc</display-name>
+  <display-name>xxxtake-out-master</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -9,6 +9,8 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+ 
   <!-- 配置监听器 -->
   <listener>
   	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -18,6 +20,18 @@
   	<param-value>classpath:applicationcontext.xml</param-value>
   </context-param>
   
+  <jsp-config>
+    <jsp-property-group>
+      <description>html encoding example</description>
+      <display-name>JSPConfiguration</display-name>
+      <url-pattern>*.html</url-pattern>
+      <el-ignored>true</el-ignored>
+      <page-encoding>UTF-8</page-encoding>
+      <scripting-invalid>false</scripting-invalid>
+      <include-prelude></include-prelude>
+      <include-coda></include-coda>
+    </jsp-property-group>
+  </jsp-config>
   <!-- 配置过滤器 -->
   <filter>
   	<filter-name>filter</filter-name>
